@@ -50,10 +50,13 @@ public class PizzaOrderEntity {
 	public Integer getNumberOfPiecesOrdered() {
 		return numberOfPiecesOrdered;
 	}
+	public PizzaOrderEntity() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public void setNumberOfPiecesOrdered(Integer numberOfPiecesOrdered) {
 		this.numberOfPiecesOrdered = numberOfPiecesOrdered;
 	}
-	
 	public PizzaOrderEntity(Integer orderId, Integer pizzaId, String customerName, String contactNumber, Double bill,
 			Integer numberOfPiecesOrdered) {
 		super();
@@ -64,7 +67,6 @@ public class PizzaOrderEntity {
 		this.bill = bill;
 		this.numberOfPiecesOrdered = numberOfPiecesOrdered;
 	}
-	public PizzaOrderEntity() {
-		super();
+	
 
 }

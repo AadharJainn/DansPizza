@@ -1,12 +1,13 @@
 package ct.dp.RestClient;
 
 import java.util.Arrays;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
-import org.springframework.web.client.RestTemplate;
-import ct.dp.entity.PizzaOrderEntity;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+import ct.dp.entity.PizzaOrderEntity;
 
 public class RestClient {
 	private static String Update_Info = "http://localhost:8080/update/";
@@ -31,9 +32,15 @@ public class RestClient {
 		System.out.print(result);
 	}
 	private static void updatePizza() {
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
   	  Map<String, Integer> param=new HashMap();
   	  param.put("orderId", 5001);
   	  PizzaOrderEntity updatePizza=new PizzaOrderEntity(5001 ,1001, "Aadhar", "1234567890", 250.00,2);
   	restTemplate.put(Update_Info+"5001", updatePizza, param);
     }
 }
+	
+
+
+
+
