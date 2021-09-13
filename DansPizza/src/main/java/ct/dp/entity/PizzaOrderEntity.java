@@ -54,5 +54,17 @@ public class PizzaOrderEntity {
 		this.numberOfPiecesOrdered = numberOfPiecesOrdered;
 	}
 	
+	public PizzaOrderEntity(Integer orderId, Integer pizzaId, String customerName, String contactNumber, Double bill,
+			Integer numberOfPiecesOrdered) {
+		super();
+		this.orderId = orderId;
+		this.pizzaId = pizzaId;
+		this.customerName = customerName;
+		this.contactNumber = contactNumber;
+		this.bill = bill;
+		this.numberOfPiecesOrdered = numberOfPiecesOrdered;
+	}
+	public PizzaOrderEntity() {
+		super();
 
 }
