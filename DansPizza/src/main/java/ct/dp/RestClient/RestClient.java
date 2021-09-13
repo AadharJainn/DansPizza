@@ -10,14 +10,14 @@ import org.springframework.web.client.RestTemplate;
 import ct.dp.entity.PizzaOrderEntity;
 
 public class RestClient {
-	private static String Update_Info = "http://localhost:8080/update/";
+	private static String Update_Info = "http://localhost:9191/update/";
 
-	private static final String Get_Info = "http://localhost:8080/pizzalist";
+	private static final String Get_Info = "http://localhost:9191/pizzalist";
 
 	static RestTemplate restTemplate = new RestTemplate();
 
 	public static void main(String[] args) {
-		updatePizza();
+		updatePizza(); 
 		getPizza();
 		
 	}
@@ -32,7 +32,7 @@ public class RestClient {
 		System.out.print(result);
 	}
 	private static void updatePizza() {
-		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+	
   	  Map<String, Integer> param=new HashMap();
   	  param.put("orderId", 5001);
   	  PizzaOrderEntity updatePizza=new PizzaOrderEntity(5001 ,1001, "Aadhar", "1234567890", 250.00,2);
