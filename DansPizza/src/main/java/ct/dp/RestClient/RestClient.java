@@ -1,12 +1,24 @@
 package ct.dp.RestClient;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import ct.dp.business.bean.PizzaOrderBean;
 import ct.dp.entity.PizzaOrderEntity;
 
 public class RestClient {
@@ -14,33 +26,28 @@ public class RestClient {
 
 	private static final String Get_Info = "http://localhost:9191/pizzalist";
 
-	static RestTemplate restTemplate = new RestTemplate();
+	static RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 
-	public static void main(String[] args) {
-		updatePizza(); 
+	public static void main(String[] args) throws IOException {
+
 		getPizza();
-		
 	}
 
 	public static void getPizza() {
 
 		org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		@SuppressWarnings("unused")
 		HttpEntity<String> entity = new HttpEntity("parameters", headers);
-		String result = restTemplate.getForObject(Get_Info, String.class); // restTemplate.exchange(Get_Info,
-																			// HttpMethod.GET, entity, String.class);
+		String result = restTemplate.getForObject(Get_Info, String.class);
 		System.out.print(result);
 	}
-	private static void updatePizza() {
-	
-  	  Map<String, Integer> param=new HashMap();
-  	  param.put("orderId", 5001);
-  	  PizzaOrderEntity updatePizza=new PizzaOrderEntity(5001 ,1001, "Aadhar", "1234567890", 250.00,2);
-  	restTemplate.put(Update_Info+"5001", updatePizza, param);
-    }
+
+	public PizzaOrderBean tryUpdate(PizzaOrderBean pizzaOrderBean) {
+		final HttpEntity<PizzaOrderBean> requestEntity = new HttpEntity(pizzaOrderBean);
+		ResponseEntity<Void> responseEntity = restTemplate.exchange(Update_Info + pizzaOrderBean.getOrderId(),
+				HttpMethod.PATCH, requestEntity, Void.class);
+		return pizzaOrderBean;
+	}
+
 }
-	
-
-
-
-

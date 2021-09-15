@@ -7,9 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ct.dp.RestClient.RestClient;
 import ct.dp.business.bean.PizzaBean;
 import ct.dp.business.bean.PizzaOrderBean;
 import ct.dp.dao.PizzaDAOWrapper;
+import ct.dp.dao.PizzaOrderDAO;
 
 @Service
 public class PizzaServiceImpl implements PizzaService {
@@ -41,4 +43,25 @@ public class PizzaServiceImpl implements PizzaService {
 		return pizzaMap;
 
 	}
+
+	public PizzaOrderBean tryPizza(PizzaOrderBean pizzaOrderBean) throws Exception {
+	 RestClient restClient=new RestClient();
+	 double price = pizzaDAOWrapper.getPizzaPrice(pizzaOrderBean.getPizzaId());
+		Double bill = pizzaOrderBean.getNumberOfPiecesOrdered() * price;
+		pizzaOrderBean.setBill(bill);
+	 restClient.tryUpdate(pizzaOrderBean);
+	return pizzaOrderBean;
+	}
+
+	public Map<Integer, Integer> updatePizzaDetails() throws Exception {
+		List<PizzaOrderBean> pizzaList = pizzaDAOWrapper.updateOrderDetails();
+		Map<Integer, Integer> pizzaMap = new HashMap<Integer, Integer>();
+		for (PizzaOrderBean item : pizzaList) {
+			pizzaMap.put(item.getOrderId(),item.getOrderId());
+		}
+		return pizzaMap;
+
+	}
+
+
 }

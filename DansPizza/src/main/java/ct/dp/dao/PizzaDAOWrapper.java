@@ -45,6 +45,23 @@ public class PizzaDAOWrapper {
 		}
 		return list;
 	}
+	
+	public List<PizzaOrderBean> updateOrderDetails() throws Exception {
+
+		List<PizzaOrderBean> list = new ArrayList<PizzaOrderBean>();
+		try {
+			List<PizzaOrderEntity> listOrderEntity = pizzaDAO.findOrderDetails();
+
+			for (PizzaOrderEntity pizzaOrderEntity : listOrderEntity) {
+				PizzaOrderBean pizzaOrderBean = convertPizzaOrderEntityToBean(pizzaOrderEntity);
+				list.add(pizzaOrderBean);
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
+	}
+	
 
 	public PizzaOrderBean addPizzaOrderDetails(PizzaOrderBean pizzaOrderBean) throws Exception {
 		PizzaOrderBean pizzaOrderBeanRet = null;

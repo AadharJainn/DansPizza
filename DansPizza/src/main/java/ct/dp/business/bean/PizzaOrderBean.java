@@ -4,6 +4,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.sun.istack.Nullable;
+
 public class PizzaOrderBean {
 	
 	private Integer orderId;
@@ -16,7 +18,7 @@ public class PizzaOrderBean {
 	
 	@Size(min=10,max=10, message="Contact Number should have length 10")
 	private String contactNumber;
-	
+	@Nullable
 	private Double bill;
 	
 	@Min(value=1,message="Minimum Value for the Quantity is One")
