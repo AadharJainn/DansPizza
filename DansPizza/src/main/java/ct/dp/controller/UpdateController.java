@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ct.dp.business.bean.PizzaOrderBean;
+import ct.dp.business.bean.UpdatePizzaOrderBean;
 import ct.dp.dao.PizzaDAO;
 import ct.dp.dao.PizzaOrderDAO;
 import ct.dp.service.PizzaService;
@@ -36,7 +37,7 @@ public class UpdateController {
 	}
 
 	@RequestMapping(path = "/updateOrder", method = RequestMethod.POST)
-	public ModelAndView updatePizzaOrder(@Valid @ModelAttribute("updatePizzaOrder") PizzaOrderBean pizzaOrderBean,
+	public ModelAndView updatePizzaOrder(@Valid @ModelAttribute("updatePizzaOrder") UpdatePizzaOrderBean updatePizzaOrderBean,
 			BindingResult bindingResult) throws Exception {
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -44,7 +45,7 @@ public class UpdateController {
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("UpdatePizzaOrder");
 		} else {
-			PizzaOrderBean retPizzaOrderBean = pizzaService.tryPizza(pizzaOrderBean);
+			UpdatePizzaOrderBean retPizzaOrderBean = pizzaService.tryPizza(updatePizzaOrderBean);
 			modelAndView.setViewName("UpdateOrderSuccess");
 			modelAndView.addObject("updateMessage",
 					"Hi: " + retPizzaOrderBean.getCustomerName() + ", your order is updated with orderId: "

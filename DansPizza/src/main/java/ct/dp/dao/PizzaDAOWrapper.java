@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ct.dp.business.bean.PizzaBean;
 import ct.dp.business.bean.PizzaOrderBean;
+import ct.dp.business.bean.UpdatePizzaOrderBean;
 import ct.dp.entity.PizzaEntity;
 import ct.dp.entity.PizzaOrderEntity;
 
@@ -46,15 +47,15 @@ public class PizzaDAOWrapper {
 		return list;
 	}
 	
-	public List<PizzaOrderBean> updateOrderDetails() throws Exception {
+	public List<UpdatePizzaOrderBean> updateOrderDetails() throws Exception {
 
-		List<PizzaOrderBean> list = new ArrayList<PizzaOrderBean>();
+		List<UpdatePizzaOrderBean> list = new ArrayList<UpdatePizzaOrderBean>();
 		try {
 			List<PizzaOrderEntity> listOrderEntity = pizzaDAO.findOrderDetails();
 
 			for (PizzaOrderEntity pizzaOrderEntity : listOrderEntity) {
-				PizzaOrderBean pizzaOrderBean = convertPizzaOrderEntityToBean(pizzaOrderEntity);
-				list.add(pizzaOrderBean);
+				UpdatePizzaOrderBean updatePizzaOrderBean = convertUpdatePizzaOrderEntityToBean(pizzaOrderEntity);
+				list.add(updatePizzaOrderBean);
 			}
 		} catch (Exception e) {
 			throw e;
@@ -111,6 +112,12 @@ public class PizzaDAOWrapper {
 		PizzaOrderBean pizzaOrderBean = new PizzaOrderBean();
 		BeanUtils.copyProperties(entity, pizzaOrderBean);
 		return pizzaOrderBean;
+	}
+	
+	public static UpdatePizzaOrderBean convertUpdatePizzaOrderEntityToBean(PizzaOrderEntity entity) {
+		UpdatePizzaOrderBean updatePizzaOrderBean = new UpdatePizzaOrderBean();
+		BeanUtils.copyProperties(entity, updatePizzaOrderBean);
+		return updatePizzaOrderBean;
 	}
 
 	public static PizzaOrderEntity convertPizzaOrderBeanToEntity(PizzaOrderBean bean) {

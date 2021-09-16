@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ct.dp.RestClient.RestClient;
 import ct.dp.business.bean.PizzaBean;
 import ct.dp.business.bean.PizzaOrderBean;
+import ct.dp.business.bean.UpdatePizzaOrderBean;
 import ct.dp.dao.PizzaDAOWrapper;
 import ct.dp.dao.PizzaOrderDAO;
 
@@ -44,19 +45,19 @@ public class PizzaServiceImpl implements PizzaService {
 
 	}
 
-	public PizzaOrderBean tryPizza(PizzaOrderBean pizzaOrderBean) throws Exception {
+	public UpdatePizzaOrderBean tryPizza(UpdatePizzaOrderBean updatePizzaOrderBean) throws Exception {
 	 RestClient restClient=new RestClient();
-	 double price = pizzaDAOWrapper.getPizzaPrice(pizzaOrderBean.getPizzaId());
-		Double bill = pizzaOrderBean.getNumberOfPiecesOrdered() * price;
-		pizzaOrderBean.setBill(bill);
-	 restClient.tryUpdate(pizzaOrderBean);
-	return pizzaOrderBean;
+	 double price = pizzaDAOWrapper.getPizzaPrice(updatePizzaOrderBean.getPizzaId());
+		Double bill = updatePizzaOrderBean.getNumberOfPiecesOrdered() * price;
+		updatePizzaOrderBean.setBill(bill);
+	 restClient.tryUpdate(updatePizzaOrderBean);
+	return updatePizzaOrderBean;
 	}
 
 	public Map<Integer, Integer> updatePizzaDetails() throws Exception {
-		List<PizzaOrderBean> pizzaList = pizzaDAOWrapper.updateOrderDetails();
+		List<UpdatePizzaOrderBean> pizzaList = pizzaDAOWrapper.updateOrderDetails();
 		Map<Integer, Integer> pizzaMap = new HashMap<Integer, Integer>();
-		for (PizzaOrderBean item : pizzaList) {
+		for (UpdatePizzaOrderBean item : pizzaList) {
 			pizzaMap.put(item.getOrderId(),item.getOrderId());
 		}
 		return pizzaMap;

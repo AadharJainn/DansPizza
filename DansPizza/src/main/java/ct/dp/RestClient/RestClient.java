@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import ct.dp.business.bean.PizzaOrderBean;
+import ct.dp.business.bean.UpdatePizzaOrderBean;
 import ct.dp.entity.PizzaOrderEntity;
 
 public class RestClient {
@@ -43,11 +44,11 @@ public class RestClient {
 		System.out.print(result);
 	}
 
-	public PizzaOrderBean tryUpdate(PizzaOrderBean pizzaOrderBean) {
-		final HttpEntity<PizzaOrderBean> requestEntity = new HttpEntity(pizzaOrderBean);
-		ResponseEntity<Void> responseEntity = restTemplate.exchange(Update_Info + pizzaOrderBean.getOrderId(),
+	public UpdatePizzaOrderBean tryUpdate(UpdatePizzaOrderBean updatePizzaOrderBean) {
+		final HttpEntity<UpdatePizzaOrderBean> requestEntity = new HttpEntity(updatePizzaOrderBean);
+		ResponseEntity<Void> responseEntity = restTemplate.exchange(Update_Info + updatePizzaOrderBean.getOrderId(),
 				HttpMethod.PATCH, requestEntity, Void.class);
-		return pizzaOrderBean;
+		return updatePizzaOrderBean;
 	}
 
 }
